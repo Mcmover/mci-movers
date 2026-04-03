@@ -46,8 +46,8 @@ export default function MCIMovers() {
     e.preventDefault();
     setLoading(true);
     emailjs.send(
-      'YOUR_SERVICE_ID',
-      'YOUR_TEMPLATE_ID',
+      'service_5593b6t',
+      'template_0hk63v9',
       {
         from_name: `${form.firstName} ${form.lastName}`,
         email: form.email,
@@ -58,7 +58,7 @@ export default function MCIMovers() {
         move_date: form.date,
         notes: form.notes,
       },
-      'YOUR_PUBLIC_KEY'
+      '8IZFzEaJfbOJmjb7M'
     )
     .then(() => {
       setSubmitted(true);
