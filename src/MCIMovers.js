@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import './MCIMovers.css';
-
-// ── DATA ──────────────────────────────────────────────────────────────────────
 
 const SERVICES = [
   { icon: '🏠', num: '01', title: 'Residential Moving', desc: 'Local and interstate home moves handled with full care. We protect your furniture, pack your fragile items, and deliver everything intact.' },
@@ -31,14 +30,13 @@ const MARQUEE_ITEMS = [
   'Office Moving', 'International Shipping', 'Furniture Assembly', 'Senior Moving',
 ];
 
-// ── COMPONENT ─────────────────────────────────────────────────────────────────
-
 export default function MCIMovers() {
   const [form, setForm] = useState({
     firstName: '', lastName: '', phone: '', email: '',
     from: '', to: '', moveType: 'Residential', date: '', notes: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -46,15 +44,39 @@ export default function MCIMovers() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    setLoading(true);
+    emailjs.send(
+      'YOUR_SERVICE_ID',
+      'YOUR_TEMPLATE_ID',
+      {
+        from_name: `${form.firstName} ${form.lastName}`,
+        email: form.email,
+        phone: form.phone,
+        moving_from: form.from,
+        moving_to: form.to,
+        move_type: form.moveType,
+        move_date: form.date,
+        notes: form.notes,
+      },
+      'YOUR_PUBLIC_KEY'
+    )
+    .then(() => {
+      setSubmitted(true);
+      setLoading(false);
+      setForm({ firstName: '', lastName: '', phone: '', email: '', from: '', to: '', moveType: 'Residential', date: '', notes: '' });
+    })
+    .catch((error) => {
+      console.error('EmailJS error:', error);
+      setLoading(false);
+      alert('Something went wrong. Please call us at (800) MCI-MOVE');
+    });
   };
 
   return (
     <>
       {/* NAV */}
       <nav className="mci-nav">
-        <a href="#home" className="mci-logo">MCI <span>MOVERS</span></a>
+        <a href="#home" className="mci-logo">MCI <span>MOVER</span></a>
         <ul className="mci-nav-links">
           <li><a href="#services">Services</a></li>
           <li><a href="#process">Process</a></li>
@@ -69,11 +91,11 @@ export default function MCIMovers() {
         <div className="mci-hero-bg" />
         <div className="mci-grid-lines" />
         <div className="mci-hero-content">
-          <div className="mci-hero-tag">Licensed &amp; Insured Movers</div>
+          
           <h1>WE MOVE<br /><em>YOUR WORLD</em><br />FORWARD.</h1>
           <p className="mci-hero-sub">
             MCI Movers delivers seamless, white-glove relocation services — residential, commercial,
-            long-distance, and everything in between. Your belongings. Our responsibility.
+            and everything in between. Your belongings. Our responsibility.
           </p>
           <div className="mci-hero-btns">
             <a href="#quote" className="mci-btn-primary">Get a Free Quote</a>
@@ -81,9 +103,9 @@ export default function MCIMovers() {
           </div>
         </div>
         <div className="mci-hero-stats">
-          <div className="mci-stat"><div className="mci-stat-num">15K+</div><div className="mci-stat-label">Moves Completed</div></div>
+          <div className="mci-stat"><div className="mci-stat-num">7K+</div><div className="mci-stat-label">Moves Completed</div></div>
           <div className="mci-stat"><div className="mci-stat-num">98%</div><div className="mci-stat-label">Satisfaction Rate</div></div>
-          <div className="mci-stat"><div className="mci-stat-num">12+</div><div className="mci-stat-label">Years of Service</div></div>
+          <div className="mci-stat"><div className="mci-stat-num">4+</div><div className="mci-stat-label">Years of Service</div></div>
         </div>
       </section>
 
@@ -101,7 +123,7 @@ export default function MCIMovers() {
         <div className="mci-services-head">
           <div className="mci-section-label">What We Do</div>
           <h2 className="mci-section-title">COMPREHENSIVE<br />MOVING SERVICES</h2>
-          <p>From a single room to a full corporate campus — MCI Movers handles every move with military-grade planning and care.</p>
+          <p>From a single room to a complete office, MCI Movers handles every move with military-grade planning and care.</p>
         </div>
         <div className="mci-services-grid">
           {SERVICES.map((s) => (
@@ -173,13 +195,13 @@ export default function MCIMovers() {
         <div className="mci-coverage-inner">
           <div className="mci-coverage-content">
             <div className="mci-section-label">Service Area</div>
-            <h2 className="mci-section-title">NATIONWIDE<br />COVERAGE.</h2>
-            <p>From local neighborhood moves to full cross-country relocations, MCI Movers operates across all 50 states with a fleet of over 80 vehicles and 300+ trained professionals.</p>
+            <h2 className="mci-section-title">CITYWIDE<br />COVERAGE.</h2>
+            <p>From neighborhood moves to citywide relocations in Houston.</p>
             <div className="mci-coverage-features">
               {[
-                { icon: '🗺️', title: 'Local & Regional Moves', desc: 'Same-day and next-day availability for moves within your metro area.' },
-                { icon: '🛣️', title: 'Interstate Moving', desc: 'Fully licensed USDOT carrier. Real-time GPS tracking on every long-haul move.' },
-                { icon: '✈️', title: 'International Shipping', desc: 'Door-to-door international moving with customs clearance assistance.' },
+                { icon: '🗺️', title: 'Local Moves in Houston', desc: 'Same-day and next-day availability for moves throughout Houston neighborhoods.' },
+                { icon: '📦', title: 'Packing & Handling', desc: 'Professional packing, fragile item care, and secure loading to make your move stress-free.' },
+                { icon: '⏱️', title: 'Fast & Reliable Service', desc: 'Efficient, on-time moves with courteous, experienced movers you can trust.' },
               ].map((f) => (
                 <div key={f.title} className="mci-feat">
                   <div className="mci-feat-icon">{f.icon}</div>
@@ -263,7 +285,7 @@ export default function MCIMovers() {
                     <select name="moveType" value={form.moveType} onChange={handleChange}>
                       <option>Residential</option>
                       <option>Commercial / Office</option>
-                      <option>Long-Distance</option>
+  
                       <option>Specialty / Fragile</option>
                       <option>Storage</option>
                     </select>
@@ -277,7 +299,9 @@ export default function MCIMovers() {
                   <label>Additional Notes</label>
                   <textarea name="notes" placeholder="Any special items, access restrictions, or details we should know..." value={form.notes} onChange={handleChange} />
                 </div>
-                <button type="submit" className="mci-form-submit">Get My Free Quote →</button>
+                <button type="submit" className="mci-form-submit" disabled={loading}>
+                  {loading ? 'Sending...' : 'Get My Free Quote →'}
+                </button>
               </form>
             )}
           </div>
@@ -288,9 +312,9 @@ export default function MCIMovers() {
       <footer className="mci-footer">
         <div className="mci-footer-top">
           <div className="mci-footer-brand">
-            <a href="#home" className="mci-footer-logo">MCI <span>MOVERS</span></a>
+            <a href="#home" className="mci-footer-logo">MCI <span>MOVER</span></a>
             <div className="mci-footer-tagline">Moving Your World Forward</div>
-            <p>Licensed, bonded, and insured. Serving residential and commercial clients nationwide for over 12 years.</p>
+            <p>Serving residential and commercial clients in the Houston area for over 4 years.</p>
           </div>
           <div className="mci-footer-col">
             <h5>Services</h5>
@@ -310,14 +334,14 @@ export default function MCIMovers() {
           </div>
           <div className="mci-footer-col">
             <h5>Contact</h5>
-            <div className="mci-contact-item">📞 (800) MCI-MOVE</div>
-            <div className="mci-contact-item">✉️ hello@mcimovers.com</div>
+            <div className="mci-contact-item">📞 (832) MCI-MOVE</div>
+            <div className="mci-contact-item">✉️ info@mcimover.com</div>
             <div className="mci-contact-item">📍 Houston, TX (HQ)</div>
             <div className="mci-contact-item">🕐 24/7 Support Available</div>
           </div>
         </div>
         <div className="mci-footer-bottom">
-          <p>© 2025 MCI Movers. All rights reserved. USDOT #1234567 | MC #9876543</p>
+          <p>© 2025 MCI Mover. All rights reserved. | MC #9876543</p>
           <div className="mci-footer-social">
             {['f', 'in', 'ig', 'x'].map((s) => <a key={s} href="#home" className="mci-social-btn">{s}</a>)}
           </div>
@@ -325,7 +349,7 @@ export default function MCIMovers() {
       </footer>
 
       {/* FLOATING CALL BUTTON */}
-      <a href="tel:8006264683" className="mci-float-phone" title="Call MCI Movers">📞</a>
+      <a href="8328006503" className="mci-float-phone" title="Call MCI Movers">📞</a>
     </>
   );
 }
