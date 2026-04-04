@@ -334,7 +334,7 @@ export default function MCIMovers() {
           </div>
           <div className="mci-footer-col">
             <h5>Contact</h5>
-            <div className="mci-contact-item">📞 (800) MCI-MOVE</div>
+            <div className="mci-contact-item">📞 (832) MCI-MOVE</div>
             <div className="mci-contact-item">✉️ info@mcimover.com</div>
             <div className="mci-contact-item">📍 Houston, TX (HQ)</div>
             <div className="mci-contact-item">🕐 24/7 Support Available</div>
