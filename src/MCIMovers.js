@@ -319,7 +319,7 @@ export default function MCIMovers() {
           <div className="mci-footer-col">
             <h5>Services</h5>
             <ul>
-              {['Residential Moving', 'Commercial Relocation', 'Long-Distance Moving', 'Packing & Unpacking', 'Storage Solutions', 'Specialty Items'].map((s) => (
+              {['Residential Moving', 'Commercial Relocation', 'Packing & Unpacking', 'Specialty Items'].map((s) => (
                 <li key={s}><a href="#services">{s}</a></li>
               ))}
             </ul>
@@ -334,7 +334,7 @@ export default function MCIMovers() {
           </div>
           <div className="mci-footer-col">
             <h5>Contact</h5>
-            <div className="mci-contact-item">📞 (832) MCI-MOVE</div>
+            <div className="mci-contact-item">📞 (800) MCI-MOVE</div>
             <div className="mci-contact-item">✉️ info@mcimover.com</div>
             <div className="mci-contact-item">📍 Houston, TX (HQ)</div>
             <div className="mci-contact-item">🕐 24/7 Support Available</div>
@@ -349,7 +349,7 @@ export default function MCIMovers() {
       </footer>
 
       {/* FLOATING CALL BUTTON */}
-      <a href="8328006503" className="mci-float-phone" title="Call MCI Movers">📞</a>
+      <a href="tel:8328006503" className="mci-float-phone" title="Call MCI Movers">📞</a>
     </>
   );
 }
